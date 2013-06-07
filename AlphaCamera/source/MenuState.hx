@@ -1,11 +1,11 @@
 package;
 
-import nme.Assets;
-import nme.geom.Rectangle;
-import nme.net.SharedObject;
-import nme.display.BlendMode;
-import nme.display.Bitmap;
-import nme.display.Sprite;
+import openfl.Assets;
+import flash.geom.Rectangle;
+import flash.net.SharedObject;
+import flash.display.BlendMode;
+import flash.display.Bitmap;
+import flash.display.Sprite;
 import org.flixel.FlxButton;
 import org.flixel.FlxCamera;
 import org.flixel.FlxG;
@@ -20,6 +20,7 @@ class MenuState extends FlxState
 {
     private var blender:FlxSprite;
     private var background:FlxSprite;
+    private var normalSprite:FlxSprite;
     private var maskBitmap:Bitmap;
     private var maskSprite:Sprite;
     
@@ -31,35 +32,39 @@ class MenuState extends FlxState
 		FlxG.mouse.show();
 		#end
 
-		FlxG.camera.bgColor = 0xff0000ff;
+		FlxG.camera.bgColor = 0x000000ff;
 
-		var cameraWithEffect = new FlxCamera(0,-50,FlxG.width, FlxG.height);
-		cameraWithEffect._flashSprite.blendMode = BlendMode.LAYER;
-		cameraWithEffect._flashSprite.cacheAsBitmap = true;
-		cameraWithEffect.bgColor = 0xff00ff00;
-		FlxG.addCamera(cameraWithEffect);
+		// var cameraWithEffect = new FlxCamera(0,-50,FlxG.width, FlxG.height);
+		// cameraWithEffect._flashSprite.blendMode = BlendMode.LAYER;
+		// cameraWithEffect._flashSprite.cacheAsBitmap = true;
+		// cameraWithEffect.bgColor = 0xff00ff00;
+		// FlxG.addCamera(cameraWithEffect);
 
-		var cameras = new Array<FlxCamera>();
-		cameras.push(cameraWithEffect);
+		// var cameras = new Array<FlxCamera>();
+		// cameras.push(cameraWithEffect);
 
-		background = new FlxSprite(0, 0, "assets/img/bg.png");
-		background.cameras = cameras;
-		add(background);
+		// background = new FlxSprite(0, 0, "assets/img/bg.png");
+		// background.cameras = cameras;
+		// add(background);
 
-		blender = new FlxSprite(0, 0, "assets/img/starburst.png");
-		blender.blend = BlendMode.ALPHA;
-		blender.cameras = cameras;
-		add(blender);
+		// blender = new FlxSprite(0, 0, "assets/img/starburst.png");
+		// blender.blend = BlendMode.ALPHA;
+		// blender.cameras = cameras;
+		// add(blender);
 
-		maskBitmap = new nme.display.Bitmap(blender.pixels);
-		maskBitmap.blendMode = BlendMode.ALPHA;
+		// maskBitmap = new flash.display.Bitmap(blender.pixels);
+		// maskBitmap.blendMode = BlendMode.ALPHA;
 
-		maskSprite = new Sprite();
-		maskSprite.graphics.beginFill(0x000000, 1);
-		maskSprite.graphics.drawCircle(0,0,40);
-		maskSprite.graphics.endFill();
+		// maskSprite = new Sprite();
+		// maskSprite.graphics.beginFill(0x000000, 1);
+		// maskSprite.graphics.drawCircle(0,0,40);
+		// maskSprite.graphics.endFill();
 
-		cameraWithEffect._flashSprite.mask = maskSprite; 
+		// cameraWithEffect._flashSprite.mask = maskSprite; 
+
+		normalSprite = new FlxSprite(0,0);
+		normalSprite.makeGraphic(50,50,0xff447733);
+		add(normalSprite);
 	}
 	
 	override public function destroy():Void
@@ -71,12 +76,14 @@ class MenuState extends FlxState
 	{
 		super.update();
 
-		blender.x = FlxG.mouse.x - blender.width/2;
-		blender.y = FlxG.mouse.y - blender.height/2;
-		maskBitmap.x = FlxG.mouse.x - maskBitmap.x/2;
-		maskBitmap.y = FlxG.mouse.y - maskBitmap.y/2;
-		maskSprite.x = FlxG.mouse.x - maskSprite.width;
-		maskSprite.y = FlxG.mouse.y - maskSprite.height;
+		normalSprite.x = FlxG.mouse.x;
+		normalSprite.y = FlxG.mouse.y;
+		// blender.x = FlxG.mouse.x - blender.width/2;
+		// blender.y = FlxG.mouse.y - blender.height/2;
+		// maskBitmap.x = FlxG.mouse.x - maskBitmap.x/2;
+		// maskBitmap.y = FlxG.mouse.y - maskBitmap.y/2;
+		// maskSprite.x = FlxG.mouse.x - maskSprite.width;
+		// maskSprite.y = FlxG.mouse.y - maskSprite.height;
 	}	
 
     override public function draw():Void {
