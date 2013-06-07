@@ -1,11 +1,11 @@
 package;
 
-import nme.Assets;
-import nme.geom.Rectangle;
-import nme.net.SharedObject;
-import nme.display.BlendMode;
-import nme.display.Bitmap;
-import nme.display.Sprite;
+import openfl.Assets;
+import flash.geom.Rectangle;
+import flash.net.SharedObject;
+import flash.display.BlendMode;
+import flash.display.Bitmap;
+import flash.display.Sprite;
 import org.flixel.FlxButton;
 import org.flixel.FlxCamera;
 import org.flixel.FlxG;
