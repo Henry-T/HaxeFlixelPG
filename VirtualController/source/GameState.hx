@@ -1,8 +1,8 @@
 package;
 
-import nme.Assets;
-import nme.geom.Rectangle;
-import nme.net.SharedObject;
+import openfl.Assets;
+import flash.geom.Rectangle;
+import flash.net.SharedObject;
 import org.flixel.FlxButton;
 import org.flixel.FlxG;
 import org.flixel.FlxPath;
@@ -120,22 +120,28 @@ class GameState extends FlxState
 			ShipAim &= ~FlxObject.RIGHT;
 
 		// Update ship rotatiom
-		switch (ShipAim) {
-			case FlxObject.UP | FlxObject.LEFT:
+		if(ShipAim == FlxObject.UP | FlxObject.LEFT){
 				Ship.angle = -135;
-			case FlxObject.UP | FlxObject.RIGHT:
+		} 
+		else if(ShipAim == FlxObject.UP | FlxObject.RIGHT){
 				Ship.angle = -45;
-			case FlxObject.DOWN | FlxObject.LEFT:
+		} 
+		else if(ShipAim == FlxObject.DOWN | FlxObject.LEFT){
 				Ship.angle = 135;
-			case FlxObject.DOWN | FlxObject.RIGHT:
+		} 
+		else if(ShipAim == FlxObject.DOWN | FlxObject.RIGHT){
 				Ship.angle = 45;
-			case FlxObject.UP:
+		} 
+		else if(ShipAim == FlxObject.UP){
 				Ship.angle = -90;
-			case FlxObject.DOWN:
+		} 
+		else if(ShipAim == FlxObject.DOWN){
 				Ship.angle = 90;
-			case FlxObject.LEFT:
+		} 
+		else if(ShipAim == FlxObject.LEFT){
 				Ship.angle = 180;
-			case FlxObject.RIGHT:
+		} 
+		else if(ShipAim == FlxObject.RIGHT){
 				Ship.angle = 0;
 		}
 

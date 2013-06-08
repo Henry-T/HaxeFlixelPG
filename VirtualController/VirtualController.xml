@@ -30,7 +30,7 @@
 		<sound path="data/beep.mp3" id="Beep" />
 	</assets>
 
-	<haxelib name="nme" />
+	<haxelib name="openfl" />
 	<haxelib name="flixel"/>
 
 	<!-- You can always alt keyboard flag to what you want-->
