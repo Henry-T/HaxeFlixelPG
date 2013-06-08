@@ -1,8 +1,8 @@
 package;
 
-import nme.Assets;
-import nme.geom.Rectangle;
-import nme.net.SharedObject;
+import openfl.Assets;
+import flash.geom.Rectangle;
+import flash.net.SharedObject;
 import org.flixel.FlxButton;
 import org.flixel.FlxG;
 import org.flixel.FlxPath;
