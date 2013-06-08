@@ -1,0 +1,17 @@
+-main ApplicationMain 
+-lib openfl
+-lib flixel
+-cp source
+-cp /usr/lib/haxe/lib/openfl/1,0,0-rc,3/
+-cp /usr/lib/haxe/lib/flixel/2,0,0-alpha,2/
+-D tools=1
+-D openfl_ver=1.0.0-rc.3
+-D openfl
+-D web
+-swf-version 10.1
+-swf export/flash/bin/CameraAlpha.swf
+-swf-header 640:480:30:FFFFFF
+-cp export/flash/haxe
+#--remap nme:flash
+--no-inline
+-debug
