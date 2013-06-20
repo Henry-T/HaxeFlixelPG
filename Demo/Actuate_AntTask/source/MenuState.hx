@@ -18,8 +18,8 @@ import motion.Actuate;
 
 class MenuState extends FlxState
 {
-	private var sprite:FlxSprite;
-	var taskManger:AntTaskManager;
+	   private var sprite:FlxSprite;
+        var taskManger:AntTaskManager;
  
     override public function create():Void
     {
@@ -28,37 +28,26 @@ class MenuState extends FlxState
         sprite = new FlxSprite(12,12);
         add(sprite);
 
-        // You don't need to construct AntTask instance, just call addTask()
         taskManger = new AntTaskManager(false,finish);
-        // I add the first param to addTask()
-        // it is the object playtween() belongs to here
-        taskManger.addTask(this, playtween, null, false);
-        taskManger.addPause(4);
-        taskManger.addTask(this, playtween2,null, false);
-        taskManger.addPause(5);
+        taskManger.addTask(playtween,null,false);
+        taskManger.addPause(4,false);
+        taskManger.addTask(playtween2,null,false);
+        taskManger.addPause(5,false);
+ 
     }
+
     public function playtween():Bool
     {
-    	Actuate.tween (sprite, 4 , { y :200 } );
-    	// Reture true to let AntTaskManager know this task is finished
-    	return true;	
-	}
+        Actuate.tween (sprite, 4 , { y :200 } );
+        return true;
+    }
  
     public function playtween2():Bool
     {
-    	Actuate.tween (sprite, 5 , { y :0 } );
-    	// Reture true here too.
-    	return true;
+        Actuate.tween (sprite, 5 , { y :0 } );
+        return true;
     }
  
     public function finish():Void
-    {
-    	trace("jah"); FlxG.shake();
-    }
-
-    override public function destroy():Void
-    {super.destroy();}
- 
-    override public function update():Void
-    {super.update();}
+    {trace("jah"); FlxG.shake();}
 }
