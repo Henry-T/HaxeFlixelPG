@@ -19,4 +19,5 @@ before_script:
  
 # Run the test!
 script:
+  - cd Henry-T/HaxeFlixelPG
   - build.sh
