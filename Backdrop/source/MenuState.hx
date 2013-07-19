@@ -10,7 +10,6 @@ import org.flixel.FlxSave;
 import org.flixel.FlxSprite;
 import org.flixel.FlxState;
 import org.flixel.FlxText;
-import org.flixel.FlxU;
 import org.flixel.addons.FlxBackdrop;
 
 class MenuState extends FlxState
