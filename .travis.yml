@@ -12,6 +12,7 @@ before_script:
   - haxelib install hxcpp                              # install hxcpp to test C++ target
   - haxelib install flixel                             # install HaxeFlixel with dependencies
   - haxelib install actuate
+  - haxelib install nape
   - haxelib install openfl
   #- haxelib install openfl-native
   - haxelib install openfl-tools
