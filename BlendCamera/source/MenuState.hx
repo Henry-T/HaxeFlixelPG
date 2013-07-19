@@ -14,7 +14,6 @@ import org.flixel.FlxSave;
 import org.flixel.FlxSprite;
 import org.flixel.FlxState;
 import org.flixel.FlxText;
-import org.flixel.FlxU;
 
 class MenuState extends FlxState
 {
