@@ -60,7 +60,7 @@ class TestState extends FlxState
 
 		_camScene = new FlxCamera(Cam_Margin, Cam_Margin, FlxG.width-2*Cam_Margin, FlxG.height-2*Cam_Margin);
 		_camSceneAry = [_camScene];
-		_camScene.scroll.make(100,100);
+		_camScene.scroll.set(100,100);
 		//_camScene.zoom = 0.5;
 		_camScene.bgColor = 0xffb4ffb0;
 		FlxG.cameras.add(_camScene);
@@ -104,16 +104,16 @@ class TestState extends FlxState
 		add(_lbObjScaleY);
 
 		// Test Case
-		_object.offset.make(0,10);
-		_refObject.offset.make(0,10);
+		_object.offset.set(0,10);
+		_refObject.offset.set(0,10);
 
 		_object.velocity.x = 150;
 		_object.velocity.y = 100;
 		_refObject.velocity.x = 150;
 		_refObject.velocity.y = 100;
 
-		_object.scale.make(0.5, 0.5);
-		_refObject.scale.make(0.5, 0.5);
+		_object.scale.set(0.5, 0.5);
+		_refObject.scale.set(0.5, 0.5);
 
 		_object.angularVelocity = 200;
 		_refObject.angularVelocity = 200;
@@ -142,8 +142,8 @@ class TestState extends FlxState
 			if(_scaleTimer > 2)
 				_scaleTimer -= 2;
 			var scale = getScaleByTime(_scaleTimer);
-			_object.scale.make(scale, scale);
-			_refObject.scale.make(scale, scale);
+			_object.scale.set(scale, scale);
+			_refObject.scale.set(scale, scale);
 		}
 
 		super.update();
@@ -176,8 +176,8 @@ class TestState extends FlxState
 	private function pause():Void{
 		_speed = new FlxPoint(_object.velocity.x, _object.velocity.y);
 		_rotSpeed = _object.angularVelocity;
-		_object.velocity.make(0,0);
-		_refObject.velocity.make(0,0);
+		_object.velocity.set(0,0);
+		_refObject.velocity.set(0,0);
 		_object.angularVelocity = 0;
 		_refObject.angularVelocity = 0;
 		_paused = true;
@@ -186,8 +186,8 @@ class TestState extends FlxState
 	private function resume():Void{
 		if(_paused){
 			_paused = false;
-			_object.velocity.make(_speed.x, _speed.y);
-			_refObject.velocity.make(_speed.x, _speed.y);
+			_object.velocity.set(_speed.x, _speed.y);
+			_refObject.velocity.set(_speed.x, _speed.y);
 			_object.angularVelocity = _rotSpeed;
 			_refObject.angularVelocity = _rotSpeed;
 		}

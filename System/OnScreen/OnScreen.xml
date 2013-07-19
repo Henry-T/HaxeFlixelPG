@@ -47,7 +47,7 @@
 	<icon name="assets/HaxeFlixel.svg" />
 	
 	<haxelib name="openfl" />
-	<haxelib name="flixel"/>
+	<haxelib name="flixel-dev"/>
 	
     <!--Disable the Flixel core debugger-->
     <!--<haxedef name="FLX_NO_DEBUG" />-->
