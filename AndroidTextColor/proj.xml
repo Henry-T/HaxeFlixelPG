@@ -46,7 +46,7 @@
 	
 	<icon name="assets/HaxeFlixel.svg" />
 	
-	<haxelib name="nme" />
+	<haxelib name="openfl" />
 	<haxelib name="flixel"/>
 	
     <!--Disable the Flixel core debugger-->
