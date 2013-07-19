@@ -10,7 +10,6 @@ import org.flixel.FlxSave;
 import org.flixel.FlxSprite;
 import org.flixel.FlxState;
 import org.flixel.FlxText;
-import org.flixel.FlxU;
 
 import org.flixel.addons.taskManager.AntTask;
 import org.flixel.addons.taskManager.AntTaskManager;
@@ -29,9 +28,9 @@ class MenuState extends FlxState
         add(sprite);
 
         taskManger = new AntTaskManager(false,finish);
-        taskManger.addTask(playtween,null,false);
+        taskManger.addTask(this, playtween,null,false);
         taskManger.addPause(4,false);
-        taskManger.addTask(playtween2,null,false);
+        taskManger.addTask(this, playtween2,null,false);
         taskManger.addPause(5,false);
  
     }
