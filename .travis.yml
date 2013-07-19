@@ -11,6 +11,7 @@ before_script:
   - haxelib setup ~/haxelib
   - haxelib install hxcpp                              # install hxcpp to test C++ target
   - haxelib install flixel                             # install HaxeFlixel with dependencies
+  - haxelib git flixel-dev https://github.com/HaxeFlixel/flixel.git dev
   - haxelib install actuate
   - haxelib install nape
   - haxelib install openfl
