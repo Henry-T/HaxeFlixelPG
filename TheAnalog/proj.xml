@@ -17,7 +17,7 @@
 	<icon name="assets/HaxeFlixel.svg" />
 	
 	<haxelib name="nme" />
-	<!--haxelib name="flixel" /-->
+	<haxelib name="flixel" />
 	
     <set name="FLX_NO_TOUCH" if="flash" />
     <set name="FLX_NO_MOUSE" if="android" />
