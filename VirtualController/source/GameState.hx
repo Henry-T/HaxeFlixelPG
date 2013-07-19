@@ -10,11 +10,10 @@ import org.flixel.FlxSave;
 import org.flixel.FlxSprite;
 import org.flixel.FlxState;
 import org.flixel.FlxText;
-import org.flixel.FlxU;
 import org.flixel.FlxGroup;
 import org.flixel.FlxTypedGroup;
-import org.flixel.FlxPoint;
-import org.flixel.FlxRect;
+import org.flixel.util.FlxPoint;
+import org.flixel.util.FlxRect;
 import org.flixel.FlxObject;
 
 class GameState extends FlxState
@@ -166,7 +165,7 @@ class GameState extends FlxState
 
 		// Terminate bullets
 		for (bul in Bullets.members) {
-			if(bul.alive){
+			if(bul!=null && bul.alive){
 				var bulRect:FlxRect = new FlxRect(bul.x, bul.y, bul.width, bul.height);
 				if(!GameAreaRect.overlaps(bulRect))
 					bul.kill();
