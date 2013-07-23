@@ -16,6 +16,7 @@ before_script:
   - haxelib install nape
   - haxelib install openfl
   - haxelib install openfl-native
+  - haxelib install openfl-compatibility
   - haxelib install openfl-tools
   - haxelib install svg
   - mkdir bin                                          # create an output folder if needed
