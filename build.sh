@@ -6,7 +6,7 @@ function buildFlash(){
 
 function buildCPP(){
   echo Test On CPP $projFile
-	haxelib run openfl build "$projFile" cpp
+	haxelib run openfl build "$projFile" cpp 1>/dev/null
 	return $?
 }
 
