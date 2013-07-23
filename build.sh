@@ -16,10 +16,19 @@ projFile=""
 for f in $files; do
   full=`readlink -f $f`
   projFile=${full%%.*}.xml
-  buildFlash
-  if [ $? -ne 0 ]; then ret=1; fi
-  buildCPP
-  if [ $? -ne 0 ]; then ret=1; fi
+  confFile=${full%%.*}.build
+
+  for target in `cat $confFile`; do
+    if [ $target == "flash" ]; then
+      buildFlash
+      if [ $? -ne 0 ]; then ret=1; fi
+    fi
+
+    if [ $target == "cpp" ]; then
+      buildCPP
+      if [ $? -ne 0 ]; then ret=1; fi
+    fi
+  done
 done
 exit $ret
 
