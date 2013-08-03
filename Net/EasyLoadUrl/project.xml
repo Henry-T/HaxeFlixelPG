@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="EasyLoadUrl" package="com.example.easyloadurl" version="1.0.0" company="Company Name" />
+	<app main="Main" path="Export" file="EasyLoadUrl" />
+	
+	<source path="Source" />
+	
+	<haxelib name="openfl" />
+	
+	<assets path="Assets" rename="assets" exclude="nme.svg" />
+	<icon path="Assets/nme.svg" />
+	
+</project>
