@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="SpriteCut" package="com.example.spritecut" version="1.0.0" company="Company Name" />
+	<app main="Main" path="Export" file="SpriteCut" />
+	
+	<source path="Source" />
+	
+	<haxelib name="openfl" />
+	<haxelib name="nape" />
+	
+	<assets path="Assets" rename="assets" exclude="openfl.svg" />
+	<icon path="Assets/openfl.svg" />
+	
+</project>
