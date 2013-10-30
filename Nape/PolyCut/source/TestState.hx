@@ -47,6 +47,7 @@ class TestState extends FlxPhysState
 		Mouse.show();
 		super.create();
 		space = FlxPhysState.space;
+		disablePhysDebug();
 		
 		createWalls();
 		FlxPhysState.space.gravity.setxy(0, 600);
@@ -57,8 +58,18 @@ class TestState extends FlxPhysState
 		ps.body.position = new Vec2(300, 100);
 		ps.body.userData.flxSprite = ps;
 		ps.body.setShapeMaterials(Material.ice());
-		add(ps); 
-
+		add(ps);
+		
+		var orgImg:Sprite = new Sprite();
+		orgImg.x = ps.body.position.x;
+		orgImg.y = ps.body.position.y;
+		orgImg.graphics.beginBitmapFill(Assets.getBitmapData("assets/200.png"),
+			new Matrix(1,0,0,1,100, 100));
+		orgImg.graphics.drawRect( -100, -100, 200, 200);
+		orgImg.graphics.endFill();
+		ps.body.userData.flaSprite = orgImg;
+		FlxG.stage.addChild(orgImg);
+		
 		drawing = false;
 	}
 	
@@ -87,9 +98,12 @@ class TestState extends FlxPhysState
 				{
 					var geomPoly:GeomPoly = new GeomPoly(rayResult.shape.castPolygon.worldVerts);
 					var geomPolyList:GeomPolyList = geomPoly.cut(sPv2, ePv2, true, true);
+					// 如果一个Shape被Ray穿过但未贯穿，它同样会出现在这个列表中，这时候不需要重新创建
 					if (geomPolyList.length > 1) {
-						// 如果一个Shape被Ray穿过但未贯穿，它同样会出现在这个列表中，这时候不需要重新创建
-						geomPolyList.foreach(function(cutGeomPoly:GeomPoly) {
+						// shortcut objects
+						var phyS:FlxPhysSprite = cast(rayResult.shape.body.userData.flxSprite, FlxPhysSprite);
+						var flaSprite:Sprite = rayResult.shape.body.userData.flaSprite;
+						geomPolyList.foreach(function(cutGeomPoly:GeomPoly) {	
 							// Make a new body in world space
 							var cutPoly:Polygon = new Polygon(cutGeomPoly);
 							var cutBody:Body = new Body(BodyType.DYNAMIC);
@@ -97,15 +111,24 @@ class TestState extends FlxPhysState
 							cutBody.shapes.add(cutPoly);
 							cutBody.align();
 							
+							var deltaCOM:Vec2 = Vec2.weak(cutBody.worldCOM.x - phyS.body.worldCOM.x, cutBody.worldCOM.y-phyS.body.worldCOM.y);
+							
 							var sprite:Sprite = new Sprite();
 							sprite.x = cutBody.position.x;//cutBody.worldCOM.x;
 							sprite.y = cutBody.position.y;//cutBody.worldCOM.y;
-							sprite.graphics.beginFill(0xffff00, 0.5);
+							//sprite.graphics.beginFill(0xffff00, 0.5);
+							var bmp:BitmapData = new BitmapData(Math.ceil(flaSprite.width), Math.ceil(flaSprite.height), true, 0);
+							bmp.draw(flaSprite,
+								new Matrix(1, 0, 0, 1,
+									flaSprite.x - flaSprite.getBounds(FlxG.stage).left,
+									flaSprite.y - flaSprite.getBounds(FlxG.stage).top));
+							sprite.graphics.beginBitmapFill(bmp,
+								new Matrix(1, 0, 0, 1,
+									flaSprite.getBounds(FlxG.stage).left - flaSprite.x - deltaCOM.x, 
+									flaSprite.getBounds(FlxG.stage).top - flaSprite.y - deltaCOM.y));
+							
 							var id:Int = 0;
 							// trace("poly pos: " + poly.localCOM); // NOTE 似乎是切块相对未切割时质心的位置
-							var d:Vec2 = Vec2.weak(
-								(cutBody.bounds.x + cutBody.bounds.width) / 2 - cutBody.worldCOM.x,
-								(cutBody.bounds.y + cutBody.bounds.height) / 2 - cutBody.worldCOM.y);
 							cutPoly.localVerts.foreach(function(vert:Vec2) {
 								if (id == 0)
 									sprite.graphics.moveTo(vert.x, vert.y);
@@ -131,10 +154,8 @@ class TestState extends FlxPhysState
 							add(fps);
 						} );
 						// Clean Up the Old Body
-						var flaSprite:Sprite = rayResult.shape.body.userData.flaSprite;
 						if(flaSprite != null)
 							FlxG.stage.removeChild(flaSprite);
-						var phyS:FlxPhysSprite = cast(rayResult.shape.body.userData.flxSprite, FlxPhysSprite);
 						phyS.destroyPhysObjects();
 						remove(phyS);
 					}
