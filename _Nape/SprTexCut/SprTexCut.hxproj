@@ -4,10 +4,10 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="PolyCut.xml" />
+    <movie path="SprTexCut.xml" />
     <movie fps="30" />
-    <movie width="1024" />
-    <movie height="768" />
+    <movie width="800" />
+    <movie height="600" />
     <movie version="3" />
     <movie minorVersion="0" />
     <movie platform="NME" />
@@ -29,12 +29,11 @@
   <!-- haxelib libraries -->
   <haxelib>
     <library name="openfl" />
-    <library name="flixel" />
     <library name="nape" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="source\ProjectClass.hx" />
+    <!-- example: <compile path="..." /> -->
   </compileTargets>
   <!-- Assets to embed into the output SWF -->
   <library>
