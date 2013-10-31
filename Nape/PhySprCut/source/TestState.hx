@@ -55,7 +55,7 @@ class TestState extends FlxPhysState
 		phySpr.createRectangularBody(200, 200, BodyType.DYNAMIC);
 		phySpr.body.position = new Vec2(300, 100);
 		phySpr.body.userData.flxSprite = phySpr;
-		phySpr.body.setShapeMaterials(Material.ice());
+		phySpr.body.setShapeMaterials(Material.steel());
 		add(phySpr);
 		
 		//var orgImg:Sprite = new Sprite();
@@ -105,7 +105,7 @@ class TestState extends FlxPhysState
 					// Make a new body in world space
 					var cutPoly:Polygon = new Polygon(cutGeomPoly);
 					var cutBody:Body = new Body(BodyType.DYNAMIC);
-					cutBody.setShapeMaterials(Material.ice());
+					cutBody.setShapeMaterials(Material.steel());
 					cutBody.shapes.add(cutPoly);
 					cutBody.align();
 					cutBody.space = FlxPhysState.space;
@@ -115,18 +115,20 @@ class TestState extends FlxPhysState
 					var sprite:Sprite = new Sprite();
 					sprite.x = cutBody.position.x;
 					sprite.y = cutBody.position.y;
-					var bmp:BitmapData = new BitmapData(Math.ceil(orgBody.bounds.width), Math.ceil(orgBody.bounds.height), true, 0);
+					
+					var bmp:BitmapData = new BitmapData(Math.ceil(orgBody.bounds.width), Math.ceil(orgBody.bounds.height), true, 0xff333333);
 					var mat:Matrix = new Matrix();
-					mat.translate(-orgPhySpr.origin.x, -orgPhySpr.origin.y);	// 旋转错误 这个origin不可靠？
 					//mat.translate(orgBody.bounds.x-orgBody.position.x, orgBody.bounds.y-orgBody.position.y);
-					mat.rotate(orgPhySpr.angle);
-					mat.translate(orgBody.position.x-orgBody.bounds.x, orgBody.position.y-orgBody.bounds.y);
+					mat.translate(-orgPhySpr.origin.x, -orgPhySpr.origin.y);	// upper line goes wrong because the bound before rotation is needed !
+					mat.rotate(orgPhySpr.angle * Math.PI/180 % 360);	// Right Here
+					mat.translate(orgBody.position.x - orgBody.bounds.x, orgBody.position.y - orgBody.bounds.y);
 					bmp.draw(orgPhySpr.pixels, mat);
 					var bmpp:Bitmap = new Bitmap(bmp);
 					bmpp.x = 200 * (check % 4);
 					bmpp.y = 200 * Math.floor(check / 4);
 					check++;
-					FlxG.stage.addChild(bmpp);	// Bitmap render result double checked !
+					//FlxG.stage.addChild(bmpp);	// Bitmap render result triple checked !
+					
 					sprite.graphics.beginBitmapFill(bmp,
 						new Matrix(1, 0, 0, 1,
 							orgBody.bounds.x - cutBody.position.x, 
@@ -140,35 +142,38 @@ class TestState extends FlxPhysState
 							sprite.graphics.lineTo(vert.x, vert.y);
 					}
 					sprite.graphics.endFill();
-					//FlxG.stage.addChild(sprite);	// Sprite render result checked !
+					//FlxG.stage.addChild(sprite);	// Sprite render result triple checked !
 					
 					var cutPhySpr:FlxPhysSprite = new FlxPhysSprite(cutBody.worldCOM.x, cutBody.worldCOM.y, null, false);
 					cutPhySpr.body = cutBody;
-					cutPhySpr.makeGraphic(Math.floor(cutBody.bounds.width), Math.floor(cutBody.bounds.height), 0x00ff0000);
+					cutPhySpr.makeGraphic(Math.floor(cutBody.bounds.width), Math.floor(cutBody.bounds.height), 0x00ff0000, true); // force the bitmap to be unique! 
 					cutPhySpr.pixels.draw(sprite, new Matrix(1, 0, 0, 1, cutBody.worldCOM.x - cutBody.bounds.x, cutBody.worldCOM.y - cutBody.bounds.y));
 					//cutPhySpr.centerOffsets(false); // NOTE ???
 					cutPhySpr.origin.make(cutBody.worldCOM.x-cutBody.bounds.x, cutBody.worldCOM.y-cutBody.bounds.y);
 					add(cutPhySpr);
 					
 					cutBody.userData.flxSprite = cutPhySpr;
+					cutBody.userData.flaSprite = sprite;
 				} );
 				if(orgPhySpr != null){
-					remove(orgPhySpr);
 					orgPhySpr.destroy();
+					remove(orgPhySpr);
 				}
+				if (orgBody.userData.flaSprite != null && orgBody.userData.flaSprite.stage==FlxG.stage)
+					FlxG.stage.removeChild(orgBody.userData.flaSprite);
 			}
 			sP.dispose();
 			eP.dispose();
 		}
 		// Match flash sprite to corresponding body
-		//for(liveBody in space.liveBodies){
-			//var flaSprite = liveBody.userData.Sprite;
-			//if(flaSprite != null){
-				//flaSprite.x = liveBody.position.x;
-				//flaSprite.y = liveBody.position.y;
-				//flaSprite.rotation = liveBody.rotation * FlxAngle.DEG % 360;
-			//}
-		//}
+		for(liveBody in space.liveBodies){
+			var flaSprite = liveBody.userData.flaSprite;
+			if(flaSprite != null){
+				flaSprite.x = liveBody.position.x;
+				flaSprite.y = liveBody.position.y;
+				flaSprite.rotation = liveBody.rotation * FlxAngle.DEG % 360;
+			}
+		}
 	}
 	
 	override public function draw():Void 
