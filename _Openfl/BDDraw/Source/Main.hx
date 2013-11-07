@@ -35,6 +35,7 @@ class Main extends Sprite {
 		stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 		stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 	}
 	
 	private function onKeyDown(e:KeyboardEvent):Void 
@@ -46,12 +47,19 @@ class Main extends Sprite {
 	{
 		
 	}
-	
+
 	private function onMouseDown(e:MouseEvent):Void 
 	{
-		
+		bd.fillRect(bd.rect, 0x0);
+		bd.draw(sprite, new flash.geom.Matrix(1,0,0,1,mouseX, mouseY));
+		bd.applyFilter(bd, bd.rect, new flash.geom.Point(), new flash.filters.BlurFilter(3,3));
 	}
 	
+	private function onMouseMove(e:MouseEvent):Void{
+		bd.draw(sprite, new flash.geom.Matrix(1,0,0,1,mouseX, mouseY));
+		bd.applyFilter(bd, bd.rect, new flash.geom.Point(), new flash.filters.BlurFilter(3,3));
+		bd.colorTransform(bd.rect, new flash.geom.ColorTransform(1,1,1, 0.9));
+	}
 	
 	
 }
