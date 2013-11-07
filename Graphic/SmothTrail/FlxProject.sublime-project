@@ -1,0 +1,25 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"name": "FlxProject",
+			"path": "D:\gproj\HaxeFlixelPG\Graphic\SmothTrail/default"
+		},
+		{
+			"follow_symlinks": true,
+			"name": "Flixel",
+			"path": "C:\HaxeToolkit\haxe\lib\flixel/git/"
+		},
+		{
+			"follow_symlinks": true,
+			"name": "Flixel Addons",
+			"path": "C:\HaxeToolkit\haxe\lib\flixel-addons/git/"
+		},
+		{
+			"follow_symlinks": true,
+			"name": "Haxe",
+			"path": "C:\HaxeToolkit\haxe\std"
+		}
+	]
+}
